@@ -1,0 +1,31 @@
+# ---------------------------------------------------------------------------
+# Password Strength Analyzer & Security Suggestion Tool -- Python dependencies
+#
+# The ANALYSIS ENGINE has ZERO third-party dependencies: everything in
+# backend/services runs on the standard library (math, re, hashlib, secrets,
+# sqlite3, statistics). That is deliberate -- a security tool should be easy to
+# audit and should not inherit someone else's supply chain.
+#
+# Flask is only needed to run the optional web API / dashboard.
+# ---------------------------------------------------------------------------
+
+# --- Web framework (Technology Stack Option A) -----------------------------
+Flask==3.0.3
+Werkzeug==3.0.3
+
+# --- Testing ---------------------------------------------------------------
+pytest==8.3.2
+pytest-cov==5.0.0
+
+# --- Optional: modern API variant (Technology Stack Option B) --------------
+# Uncomment if you want to run backend/main.py (FastAPI) instead of Flask.
+# fastapi==0.115.0
+# uvicorn[standard]==0.30.6
+
+# --- Optional: strongest password-hashing demonstration -------------------
+# The hashing demo works with the standard library (scrypt / PBKDF2) and only
+# *documents* Argon2id. Install this if you want to try Argon2id locally.
+# argon2-cffi==23.1.0
+
+# --- Optional: browser-side screenshots for the README --------------------
+# playwright==1.47.0

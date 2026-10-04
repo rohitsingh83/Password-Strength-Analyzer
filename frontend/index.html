@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Password Strength Analyzer &amp; Security Suggestion Tool</title>
+<meta name="description" content="Privacy-first password strength analyzer: score, pattern detection, common-password checks, entropy concepts, policy checker, secure generator and security advice. Runs entirely in your browser -- no password is ever stored, logged or transmitted." />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#070b14" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4l24 9v19c0 15-10 24-24 28C18 56 8 47 8 32V13z' fill='%230b111f' stroke='%234cc9f0' stroke-width='4'/%3E%3Cpath d='M22 32l7 7 14-15' stroke='%232ee6a8' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to analyzer</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#analyzer" aria-label="Password Strength Analyzer home">
+      <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+        <path d="M32 4l24 9v19c0 15-10 24-24 28C18 56 8 47 8 32V13z" fill="#0b111f" stroke="#4cc9f0" stroke-width="3.2"/>
+        <path d="M22 32l7 7 14-15" stroke="#2ee6a8" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-title">Password Strength Analyzer</span>
+        <span class="brand-sub">&amp; security suggestion tool</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" role="tablist" aria-label="Sections">
+      <button class="nav-btn" role="tab" id="tab-analyzer" aria-controls="panel-analyzer" aria-selected="true" data-tab="analyzer">Analyzer</button>
+      <button class="nav-btn" role="tab" id="tab-generator" aria-controls="panel-generator" aria-selected="false" data-tab="generator">Generator</button>
+      <button class="nav-btn" role="tab" id="tab-dashboard" aria-controls="panel-dashboard" aria-selected="false" data-tab="dashboard">Dashboard</button>
+      <button class="nav-btn" role="tab" id="tab-learn" aria-controls="panel-learn" aria-selected="false" data-tab="learn">Learn</button>
+      <button class="nav-btn" role="tab" id="tab-privacy" aria-controls="panel-privacy" aria-selected="false" data-tab="privacy">Privacy</button>
+    </nav>
+
+    <span class="header-badge" id="engine-badge" title="All analysis happens in this page. No network request is made.">
+      <span aria-hidden="true">●</span> Offline · private
+    </span>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <!-- ================= ANALYZER ================= -->
+  <section class="tab-panel is-active" id="panel-analyzer" role="tabpanel" aria-labelledby="tab-analyzer">
+
+    <div class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow" aria-hidden="true">🔐 Defensive security project</span>
+          <h1>Measure password strength by <span class="grad">predictability</span>, not by symbol counting.</h1>
+          <p class="hero-lead">
+            Composition rules are easy to satisfy and easy to guess. This analyzer scores a password on
+            <strong>length</strong>, <strong>unpredictability</strong>, <strong>pattern resistance</strong>,
+            <strong>common-password checks</strong> and <strong>context</strong> — then explains every point it
+            added or removed.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn--primary" id="run-demo" type="button">▶ Run the demo walk-through</button>
+            <button class="btn" id="goto-generator" type="button">⚙ Generate a strong password</button>
+          </div>
+          <div class="chip-row" id="demo-chips">
+            <span class="chip-label">Synthetic demo values — click to load:</span>
+            <button class="chip demo" type="button" data-demo="123456">123456</button>
+            <button class="chip demo" type="button" data-demo="Password123!">Password123!</button>
+            <button class="chip demo" type="button" data-demo="aaaaaaaaaaaaaaaa">aaaaaaaaaaaaaaaa</button>
+            <button class="chip demo" type="button" data-demo="qwerty2026!">qwerty2026!</button>
+            <button class="chip demo" type="button" data-demo="Copper-Lantern-Orchid-Gravity">Copper-Lantern-Orchid-Gravity</button>
+          </div>
+        </div>
+
+        <div class="stat-grid" aria-label="Project highlights">
+          <div class="stat stat--ok">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Passwords stored</div>
+          </div>
+          <div class="stat stat--info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Network requests made</div>
+          </div>
+          <div class="stat stat--accent">
+            <div class="stat-value" id="stat-detectors">14</div>
+            <div class="stat-label">Independent detectors</div>
+          </div>
+          <div class="stat stat--warn">
+            <div class="stat-value" id="stat-words">6,000+</div>
+            <div class="stat-label">Words in the local dictionary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input + meter -->
+    <div class="panel" style="margin-top:26px">
+      <div class="panel-head">
+        <div>
+          <h2>Analyze a password</h2>
+          <p>Type or paste a value. Analysis updates as you type and runs entirely inside this page.</p>
+        </div>
+        <div class="spacer"></div>
+        <span class="badge-inline badge-inline--ok" id="privacy-chip">✓ Nothing leaves this page</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="password-input">
+          Password
+          <span class="field-hint">hidden by default · never logged · never stored</span>
+        </label>
+        <div class="pw-row">
+          <div class="pw-input-wrap">
+            <input id="password-input" type="password" autocomplete="off" autocapitalize="off"
+                   spellcheck="false" placeholder="Type a synthetic demo password…"
+                   aria-describedby="pw-help pw-privacy-note" />
+          </div>
+          <button class="icon-btn" id="toggle-visibility" type="button" aria-pressed="false"
+                  aria-label="Show password" title="Show / hide password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+          <button class="icon-btn" id="clear-input" type="button" aria-label="Clear the input" title="Clear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <p class="reveal-note" id="pw-help">Visibility defaults to hidden so the value is not exposed to onlookers or screen recordings. Showing it is a deliberate, user-controlled action.</p>
+        <p class="reveal-note" id="pw-privacy-note">Use synthetic/demo values in screenshots and reports — never a real password.</p>
+      </div>
+
+      <details class="disclosure" id="context-disclosure">
+        <summary>➕ Optional personal-context check (used in memory only, never saved)</summary>
+        <div class="disclosure-body">
+          <p class="small">If you provide context, the analyzer checks whether it appears inside the password (for example a first name hidden behind <code>@</code> or a birth year). The values are used for this analysis only, are never stored, never logged and are not included in the response.</p>
+          <div class="context-grid">
+            <div class="field mb-0">
+              <label class="field-label" for="ctx-first">First name</label>
+              <input id="ctx-first" type="text" autocomplete="off" placeholder="e.g. Demo" />
+            </div>
+            <div class="field mb-0">
+              <label class="field-label" for="ctx-year">Birth year</label>
+              <input id="ctx-year" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 1999" />
+            </div>
+            <div class="field mb-0">
+              <label class="field-label" for="ctx-org">College / company</label>
+              <input id="ctx-org" type="text" autocomplete="off" placeholder="e.g. Demo College" />
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Meter -->
+      <div class="meter-top" style="margin-top:22px">
+        <div class="gauge" role="img" aria-label="Strength score gauge">
+          <svg viewBox="0 0 120 120" width="148" height="148" aria-hidden="true">
+            <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
+            <circle class="gauge-value" id="gauge-arc" cx="60" cy="60" r="52"
+                    stroke-dasharray="326.7" stroke-dashoffset="326.7" stroke="#7484a6"></circle>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-score" id="score-value" aria-live="polite">0</div>
+            <div class="gauge-max">/ 100</div>
+          </div>
+        </div>
+
+        <div class="meter-info">
+          <span class="classification-pill" id="classification-pill" style="color:#7484a6">
+            <span class="dot" aria-hidden="true"></span><span id="classification-text">Awaiting input</span>
+          </span>
+          <p class="classification-summary" id="classification-summary">Type a password to see its score, the reasons behind it and specific fixes.</p>
+          <div class="meter-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="meter-bar">
+            <div class="meter-fill" id="meter-fill" style="width:0%"></div>
+          </div>
+          <div class="meter-ticks" aria-hidden="true">
+            <span>0 VERY WEAK</span><span>21 WEAK</span><span>41 MODERATE</span><span>61 STRONG</span><span>81 VERY STRONG</span><span>100</span>
+          </div>
+          <div id="cap-banner"></div>
+        </div>
+      </div>
+
+      <!-- Metric tiles -->
+      <div class="tiles" id="metric-tiles">
+        <div class="tile"><div class="tile-label">Length</div><div class="tile-value" id="tile-length">0</div><div class="tile-note" id="tile-length-note">characters</div></div>
+        <div class="tile"><div class="tile-label">Character types</div><div class="tile-value" id="tile-types">0</div><div class="tile-note" id="tile-types-note">of 4 classes</div></div>
+        <div class="tile"><div class="tile-label">Entropy (effective)</div><div class="tile-value" id="tile-entropy">0</div><div class="tile-note" id="tile-entropy-note">bits · theoretical 0</div></div>
+        <div class="tile"><div class="tile-label">Policy verdict</div><div class="tile-value" id="tile-policy">—</div><div class="tile-note" id="tile-policy-note">separate from score</div></div>
+      </div>
+
+      <!-- Policy checker (independent of the strength score) -->
+      <div class="mt-16">
+        <label class="field-label" for="policy-preset">
+          Password policy checker
+          <span class="field-hint">policy compliance and strength are different questions</span>
+        </label>
+        <select id="policy-preset" aria-describedby="policy-help">
+          <option value="standard_account">Standard account — 12+ characters, blocks common passwords</option>
+          <option value="nist_baseline">NIST-style baseline — length + blocklist, no composition rules</option>
+          <option value="enterprise_iam">Enterprise IAM — 16+ characters and strength ≥ 61 enforced</option>
+          <option value="passphrase_friendly">Passphrase-friendly — 16+ characters, spaces allowed</option>
+          <option value="legacy_bank">Legacy banking-style — mandatory upper/lower/digit/symbol + 90-day rotation (shown as an anti-pattern)</option>
+        </select>
+        <p class="reveal-note" id="policy-help">A password can be STRONG and still fail a policy, or WEAK and pass one. This checker reports POLICY PASS / POLICY FAIL separately from the 0–100 score, and it never displays your password.</p>
+        <div id="policy-panel" class="mt-8"></div>
+      </div>
+    </div>
+
+    <!-- Results: findings / suggestions / breakdown -->
+    <div class="grid-2 mt-16">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>🔎 Findings</h3>
+            <p>Each weakness found, the reason it matters and the position it occupies (masked).</p>
+          </div>
+        </div>
+        <div id="findings-list" aria-live="polite">
+          <div class="notice notice--info"><span aria-hidden="true">ℹ️</span><span>No analysis yet.</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>💡 Security suggestions</h3>
+            <p>Specific and actionable — no vague “make it stronger” advice.</p>
+          </div>
+        </div>
+        <div id="suggestions-list" aria-live="polite">
+          <div class="notice notice--info"><span aria-hidden="true">ℹ️</span><span>No suggestions yet.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 mt-16">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>🧮 Score breakdown</h3>
+            <p>Every point is itemised: positive contributions, capped penalties and structural score limits.</p>
+          </div>
+        </div>
+        <div id="breakdown-bars"></div>
+        <div id="penalty-bars" class="mt-16"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>🎲 Entropy &amp; guess-resistance</h3>
+            <p>An <strong>educational estimate only</strong> — never a guaranteed crack time.</p>
+          </div>
+        </div>
+        <div id="entropy-panel">
+          <div class="notice notice--info"><span aria-hidden="true">ℹ️</span><span>Type a password to estimate entropy.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head">
+        <div>
+          <h3>🧠 Why “Password123!” is not strong</h3>
+          <p>The central lesson of this project, shown with the analyzers' own numbers.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="chart-card">
+          <h3>Composition says “yes”</h3>
+          <p>Uppercase ✓ Lowercase ✓ Digit ✓ Symbol ✓ — twelve characters, four character classes, unique-ratio 92%.</p>
+          <p class="mb-0"><span class="badge-inline badge-inline--warn">passes composition rules</span></p>
+        </div>
+        <div class="chart-card">
+          <h3>Predictability says “no”</h3>
+          <p>A dictionary word (“password”), a fixed suffix pattern (<code>123!</code>) and an entry in the demo breach corpus.</p>
+          <p class="mb-0"><span class="badge-inline badge-inline--bad">VERY WEAK · capped ≤ 20</span></p>
+        </div>
+        <div class="chart-card">
+          <h3>What actually helps</h3>
+          <p>Length (12+, ideally 16+), genuine unpredictability, no reuse, and MFA on top of the password.</p>
+          <p class="mb-0"><span class="badge-inline badge-inline--ok">length + unpredictability + MFA</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GENERATOR ================= -->
+  <section class="tab-panel" id="panel-generator" role="tabpanel" aria-labelledby="tab-generator">
+    <div class="hero" style="padding-bottom:0">
+      <span class="eyebrow" aria-hidden="true">🎲 Cryptographically secure generation</span>
+      <h1>Generate a password you never have to remember</h1>
+      <p class="hero-lead">Randomness comes from <code>crypto.getRandomValues()</code> in the browser (the same idea as Python's <code>secrets</code> module, which the backend uses). Generated values are shown once — they are not stored, logged or sent anywhere. Save them in a password manager.</p>
+    </div>
+
+    <div class="grid-2 mt-16">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Generator settings</h3>
+          <div class="spacer"></div>
+          <div class="seg" role="group" aria-label="Generator mode">
+            <button type="button" id="mode-password" aria-pressed="true">Random password</button>
+            <button type="button" id="mode-passphrase" aria-pressed="false">Passphrase</button>
+          </div>
+        </div>
+
+        <div id="password-mode-controls">
+          <div class="field">
+            <label class="field-label" for="gen-length">Length <span class="field-hint" id="gen-length-label">20 characters</span></label>
+            <input type="range" id="gen-length" min="8" max="64" step="1" value="20" />
+          </div>
+          <div class="flex gap-8" style="flex-wrap:wrap">
+            <button class="btn btn--ghost btn--sm" type="button" data-preset="16">16</button>
+            <button class="btn btn--ghost btn--sm" type="button" data-preset="20">20</button>
+            <button class="btn btn--ghost btn--sm" type="button" data-preset="24">24</button>
+            <button class="btn btn--ghost btn--sm" type="button" data-preset="32">32</button>
+          </div>
+          <div class="mt-16">
+            <div class="toggle-row"><label for="gen-upper">Uppercase letters (A–Z)</label><span class="switch"><input type="checkbox" id="gen-upper" checked /><span class="switch-track"><span class="switch-thumb"></span></span></span></div>
+            <div class="toggle-row"><label for="gen-lower">Lowercase letters (a–z)</label><span class="switch"><input type="checkbox" id="gen-lower" checked /><span class="switch-track"><span class="switch-thumb"></span></span></span></div>
+            <div class="toggle-row"><label for="gen-digits">Digits (0–9)</label><span class="switch"><input type="checkbox" id="gen-digits" checked /><span class="switch-track"><span class="switch-thumb"></span></span></span></div>
+            <div class="toggle-row"><label for="gen-symbols">Symbols (!@#$…)</label><span class="switch"><input type="checkbox" id="gen-symbols" checked /><span class="switch-track"><span class="switch-thumb"></span></span></span></div>
+            <div class="toggle-row"><label for="gen-ambiguous">Avoid look-alike characters (l I 1 O 0)</label><span class="switch"><input type="checkbox" id="gen-ambiguous" checked /><span class="switch-track"><span class="switch-thumb"></span></span></span></div>
+          </div>
+        </div>
+
+        <div id="passphrase-mode-controls" hidden>
+          <div class="field">
+            <label class="field-label" for="gen-words">Words <span class="field-hint" id="gen-words-label">5 words</span></label>
+            <input type="range" id="gen-words" min="3" max="8" step="1" value="5" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="gen-separator">Separator</label>
+            <select id="gen-separator">
+              <option value="-">hyphen ( - )</option>
+              <option value=".">dot ( . )</option>
+              <option value="_">underscore ( _ )</option>
+              <option value=" ">space ( )</option>
+            </select>
+          </div>
+          <div class="notice notice--warn"><span aria-hidden="true">⚠️</span><span>Passphrases only work when the words are <strong>randomly chosen and unique to you</strong>. Never reuse a phrase from an article, a song lyric or this demo.</span></div>
+        </div>
+
+        <div class="mt-16 flex gap-12" style="flex-wrap:wrap">
+          <button class="btn btn--primary" id="generate-btn" type="button">🎲 Generate</button>
+          <button class="btn" id="generate-analyze-btn" type="button">🔎 Generate &amp; analyze locally</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Generated value</h3>
+          <div class="spacer"></div>
+          <span class="badge-inline badge-inline--ok">not stored</span>
+        </div>
+        <div class="gen-output empty" id="gen-output">Nothing generated yet.</div>
+
+        <div class="flex gap-12 mt-16" style="flex-wrap:wrap">
+          <button class="btn btn--ghost btn--sm" id="copy-btn" type="button" disabled>📋 Copy to clipboard</button>
+          <button class="btn btn--ghost btn--sm" id="clear-gen-btn" type="button">🗑 Clear from view</button>
+        </div>
+        <p class="small text-faint mt-8">Clipboard note: copying places the value in your operating system clipboard, which other apps may read. Clear it after pasting, and prefer pasting directly into a password manager.</p>
+
+        <div class="tiles" style="grid-template-columns:repeat(3,1fr);margin-top:16px">
+          <div class="tile"><div class="tile-label">Entropy</div><div class="tile-value" id="gen-entropy">—</div><div class="tile-note">bits (estimate)</div></div>
+          <div class="tile"><div class="tile-label">Pool size</div><div class="tile-value" id="gen-pool">—</div><div class="tile-note">possible characters</div></div>
+          <div class="tile"><div class="tile-label">Local score</div><div class="tile-value" id="gen-score">—</div><div class="tile-note">from the analyzer</div></div>
+        </div>
+
+        <div class="notice notice--info mt-16"><span aria-hidden="true">ℹ️</span><span><strong>Why <code>secrets</code>/CSPRNG and not a normal random function?</strong> Statistical random generators can be predicted from their previous output. A CSPRNG is designed so that predicting the next value is infeasible even if an attacker knows the algorithm — which is exactly what a password needs.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section class="tab-panel" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+    <div class="hero" style="padding-bottom:0">
+      <span class="eyebrow" aria-hidden="true">📊 Privacy-safe analytics</span>
+      <h1>Dashboard: aggregates only, never a password</h1>
+      <p class="hero-lead">This dashboard charts <strong>non-secret metadata</strong> from the analyses you run in this browser session: score, classification band, length bucket and weakness categories. The database design behind the Python backend has no password column, no password-hash column and no context column — the dashboard is structurally incapable of revealing a value.</p>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head">
+        <div>
+          <h3>Session statistics</h3>
+          <p>Held in memory only. Reload the page and the session history disappears — nothing is persisted to localStorage, sessionStorage or cookies.</p>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn btn--ghost btn--sm" id="load-samples" type="button">Load 12 synthetic samples</button>
+        <button class="btn btn--ghost btn--sm" id="reset-analytics" type="button">Reset</button>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-value" id="kpi-total">0</div><div class="kpi-label">Total analyses</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-average">0</div><div class="kpi-label">Average score</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-weak-share">0%</div><div class="kpi-label">Weak or worse</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-top-weakness">—</div><div class="kpi-label">Most common weakness</div></div>
+      </div>
+
+      <div class="grid-3">
+        <div class="chart-card">
+          <h3>1 · Strength distribution</h3>
+          <p class="text-faint">Analyses per classification band.</p>
+          <div id="chart-distribution"></div>
+        </div>
+        <div class="chart-card">
+          <h3>2 · Score distribution</h3>
+          <p class="text-faint">Histogram of scores in 10-point buckets.</p>
+          <div id="chart-histogram"></div>
+        </div>
+        <div class="chart-card">
+          <h3>3 · Most common weaknesses</h3>
+          <p class="text-faint">Frequency of each weakness category.</p>
+          <div id="chart-weakness"></div>
+        </div>
+      </div>
+
+      <div class="grid-2 mt-16">
+        <div class="chart-card">
+          <h3>4 · Password length distribution</h3>
+          <p class="text-faint">Length only — never the value.</p>
+          <div id="chart-length"></div>
+        </div>
+        <div class="chart-card">
+          <h3>5 · Average score by length</h3>
+          <p class="text-faint">Shows why length carries so much weight — averaged scores only, never a value.</p>
+          <div id="chart-patterns"></div>
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h3>Recent analyses (metadata rows)</h3>
+        <p class="small text-faint">Exactly the columns the SQLite schema stores: id, score, classification, length, weakness count, time. There is no column that could hold a password.</p>
+        <div class="table-scroll">
+          <table class="data">
+            <thead>
+              <tr><th>Analysis ID</th><th>Score</th><th>Classification</th><th>Length</th><th>Findings</th><th>Time</th></tr>
+            </thead>
+            <tbody id="recent-rows">
+              <tr><td colspan="6" class="text-faint">No analyses in this session yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="notice notice--info mt-16"><span aria-hidden="true">ℹ️</span><span><strong>Why is this in-memory only?</strong> Even storing a hash of an arbitrary submitted password creates an unnecessary privacy risk and turns an analytics table into a credential-like artifact. Aggregate counters give the same educational value with none of the exposure. The Python backend persists these same non-secret columns in SQLite when <code>ANALYTICS_ENABLED=1</code>.</span></div>
+    </div>
+  </section>
+
+  <!-- ================= LEARN ================= -->
+  <section class="tab-panel" id="panel-learn" role="tabpanel" aria-labelledby="tab-learn">
+    <div class="hero" style="padding-bottom:0">
+      <span class="eyebrow" aria-hidden="true">🎓 Security awareness</span>
+      <h1>Learn the why behind every score</h1>
+      <p class="hero-lead">Ten rules, the entropy idea explained honestly, how production systems store passwords, and how password strength fits into real login security.</p>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head"><div><h3>10 password security rules</h3><p>Each rule includes the reason it exists — because “best practice” without a reason does not change behaviour.</p></div></div>
+      <div class="rule-grid" id="rule-grid"></div>
+    </div>
+
+    <div class="grid-2 mt-16">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Entropy: useful, but easy to misread</h3></div></div>
+        <p>Entropy estimates how uncertain an attacker is about the value, in bits. The classic estimate is:</p>
+        <p><code>Entropy ≈ length × log2(pool size)</code></p>
+        <p>That formula assumes every character was chosen <em>uniformly at random</em>. Humans do not do that: they take a memorable word and add a year or a symbol. So the formula is an <strong>upper bound</strong> for human-chosen passwords.</p>
+        <ul>
+          <li><strong>Theoretical bits</strong> — the optimistic number from the formula.</li>
+          <li><strong>Effective bits</strong> — theoretical minus a penalty for every predictable structure found.</li>
+          <li><strong>Shannon bits</strong> — a variety indicator from the character distribution (it cannot see dictionary words).</li>
+        </ul>
+        <div class="notice notice--warn"><span aria-hidden="true">⚠️</span><span>Treat any “time to crack” as an illustration, not a fact. Real resistance depends on the attacker model (online vs offline), the hashing algorithm and work factor, rate limiting and lockout, and whether the hash database has already leaked.</span></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div><h3>Password vs passphrase</h3></div></div>
+        <p>A passphrase is several <em>randomly chosen, unrelated</em> words. It is usually longer than a short random string and easier to memorise, which is why it can be a good trade-off.</p>
+        <p><code>bits ≈ words × log2(word-list size)</code> — with a 6,000+ word list that is about <strong>12.6 bits per word</strong>: 4 words ≈ 50 bits, 6 words ≈ 76 bits.</p>
+        <div class="notice notice--bad"><span aria-hidden="true">🚫</span><span>Length alone is not enough. The famous “correct-horse-battery-staple” example is in every cracking wordlist — this analyzer flags it as a <strong>famous predictable phrase</strong> and caps it in the VERY WEAK band. Try it above.</span></div>
+        <div class="notice notice--ok mt-8"><span aria-hidden="true">✅</span><span>Better: your own unrelated words, chosen randomly (or generated by a manager), used for exactly one account.</span></div>
+      </div>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head">
+        <div>
+          <h3>How production systems actually store passwords</h3>
+          <p>A separate teaching demonstration with a synthetic value — never connected to what you type in the analyzer.</p>
+        </div>
+      </div>
+      <div class="flow mb-8">
+        <span class="flow-step">Password</span><span class="flow-arrow">→</span>
+        <span class="flow-step">+ unique random salt</span><span class="flow-arrow">→</span>
+        <span class="flow-step">password hashing function (KDF)</span><span class="flow-arrow">→</span>
+        <span class="flow-step">stored hash + parameters</span><span class="flow-arrow">→</span>
+        <span class="flow-step">login: re-hash &amp; compare</span>
+      </div>
+      <button class="btn btn--sm" id="run-hash-demo" type="button">▶ Run the hashing demonstration (local, ~1 second)</button>
+      <div id="hash-demo-output" class="mt-16"></div>
+      <ul class="mt-16">
+        <li><strong>Hashing is one-way.</strong> Encryption is reversible with a key; hashing is not reversible at all. They solve different problems.</li>
+        <li><strong>Salt per user.</strong> Identical passwords then produce different stored values, so one precomputed table cannot crack many accounts at once.</li>
+        <li><strong>Slow by design.</strong> Argon2id, scrypt, bcrypt and PBKDF2 are deliberately expensive and tunable. General-purpose fast hashes (MD5/SHA-1/SHA-256 alone) help the attacker.</li>
+        <li><strong>Never store plaintext.</strong> A plaintext store turns any read-only database leak into an instant account takeover for every user.</li>
+      </ul>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head"><div><h3>Real-world login security: password strength is one layer</h3></div></div>
+      <div class="flow">
+        <span class="flow-step">Password</span><span class="flow-arrow">+</span>
+        <span class="flow-step">MFA</span><span class="flow-arrow">+</span>
+        <span class="flow-step">Rate limiting</span><span class="flow-arrow">+</span>
+        <span class="flow-step">Secure password hashing</span><span class="flow-arrow">+</span>
+        <span class="flow-step">Lockout / abuse protection</span><span class="flow-arrow">+</span>
+        <span class="flow-step">Session security</span><span class="flow-arrow">+</span>
+        <span class="flow-step">Phishing protection</span><span class="flow-arrow">+</span>
+        <span class="flow-step">Monitoring</span>
+      </div>
+      <p class="mt-16">A perfect password cannot save an account whose login page is a phishing clone, whose sessions never expire, or whose password database was stored with unsalted MD5. Conversely, MFA keeps an account safe even when a strong password leaks — which is why <em>both</em> belong in the answer.</p>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head"><div><h3>Interview preparation: 10 questions with answers</h3><p>Written from the perspective of a student who built, tested and documented this project.</p></div></div>
+      <div id="qa-list"></div>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="panel-head"><div><h3>Limitations &amp; future improvements</h3><p>Honest boundaries of this build — the part interviewers actually probe.</p></div></div>
+      <div class="grid-2">
+        <div>
+          <h4>Limitations</h4>
+          <ul>
+            <li>The 0–100 rubric and the classification bands are <strong>project-defined</strong>, not a universal security standard.</li>
+            <li>The dictionary and keyboard lists are deliberately small and educational; a real deployment would use a licensed corpus (for example a properly attributed 10k+ list).</li>
+            <li>Entropy is an estimate. A single formula cannot determine strength.</li>
+            <li>The demo breach corpus is tiny and local. Production would use a k-anonymity range API, sending only the first 5 hash characters.</li>
+            <li>Strength does not model reuse, phishing, malware or session theft — the surrounding controls matter.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Future improvements</h4>
+          <ul>
+            <li>Swap in a peer-reviewed estimator (zxcvbn-style) and compare results side by side.</li>
+            <li>Configurable enterprise policies with audit export and IAM integration concepts.</li>
+            <li>Privacy-preserving breached-password lookup using k-anonymity and range queries.</li>
+            <li>WebAuthn/passkey and passwordless education flows; MFA adoption nudges.</li>
+            <li>Localisation, accessibility review with screen readers, and organisation-level aggregate reporting that still never collects passwords.</li>
+            <li>A browser-extension mode that scores locally on signup forms.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRIVACY ================= -->
+  <section class="tab-panel" id="panel-privacy" role="tabpanel" aria-labelledby="tab-privacy">
+    <div class="hero" style="padding-bottom:0">
+      <span class="eyebrow" aria-hidden="true">🛡️ Privacy &amp; security design</span>
+      <h1>The privacy contract, stated as testable claims</h1>
+      <p class="hero-lead">Every row below is asserted by an automated test in the repository — not just promised in documentation.</p>
+    </div>
+
+    <div class="panel mt-16">
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Claim</th><th>How it is enforced</th><th>Verified by</th></tr></thead>
+          <tbody>
+            <tr><td>No password is stored</td><td>No storage API is used in the browser build; the SQLite schema has no password column</td><td class="mono">test_privacy.py::test_password_not_stored</td></tr>
+            <tr><td>No password is logged</td><td>A logging filter redacts anything that looks like a secret; audit logging accepts metadata only</td><td class="mono">test_privacy.py::test_password_not_in_logs</td></tr>
+            <tr><td>No password in the API response</td><td>Responses are built from metrics; evidence strings are bullet-masked</td><td class="mono">test_api.py::test_response_never_echoes_password</td></tr>
+            <tr><td>No password in URLs</td><td>The value is only ever sent in a JSON body (and never sent at all in the browser build)</td><td class="mono">test_api.py::test_password_not_in_url</td></tr>
+            <tr><td>No localStorage / sessionStorage / cookies</td><td>The UI keeps session statistics in a JavaScript variable</td><td class="mono">test_frontend.py::test_no_client_side_persistence</td></tr>
+            <tr><td>No external transmission</td><td>Zero network calls in the static build; the backend makes no outbound requests</td><td class="mono">test_privacy.py::test_no_outbound_calls</td></tr>
+            <tr><td>Analytics contain metadata only</td><td>Schema columns: score, classification, length, ratios, counts, timestamp</td><td class="mono">test_analytics.py::test_schema_has_no_secret_columns</td></tr>
+            <tr><td>Context is never persisted</td><td>Used in memory for one call; only field-lengths are reported back</td><td class="mono">test_privacy.py::test_context_not_stored</td></tr>
+            <tr><td>Secure randomness for generation</td><td><code>secrets</code> in Python, <code>crypto.getRandomValues</code> in the browser</td><td class="mono">test_generator.py::test_uses_csprng</td></tr>
+            <tr><td>No cracking functionality</td><td>There is no candidate-generation or guessing loop anywhere in the codebase</td><td class="mono">test_scope.py::test_no_cracking_code</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 mt-16">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Architecture</h3><p>Single engine, two runtimes.</p></div></div>
+        <div class="flow">
+          <span class="flow-step">User input</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Length</span><span class="flow-step">Character</span><span class="flow-step">Common-password</span>
+          <span class="flow-step">Sequence</span><span class="flow-step">Keyboard</span><span class="flow-step">Repetition</span>
+          <span class="flow-step">Structure</span><span class="flow-step">Context</span><span class="flow-step">Breach (demo)</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Entropy</span><span class="flow-step">Scoring</span><span class="flow-step">Classification</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Suggestions</span><span class="flow-step">Policy</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Optional aggregate metadata</span>
+        </div>
+        <p class="small mt-16">The JavaScript engine in <code>frontend/js/engine.js</code> mirrors the Python modules one-for-one, and a parity test asserts both produce identical scores, classifications, findings and policy verdicts for the same 60+ synthetic inputs.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div><h3>Threat model for this tool</h3><p>What it defends against, and what it does not.</p></div></div>
+        <h4>In scope</h4>
+        <ul>
+          <li>Weak, common, patterned, reused-in-spirit and context-derived passwords.</li>
+          <li>Misleading composition-only meters that reward predictable strings.</li>
+          <li>Practices that turn an analytics feature into a credential leak.</li>
+        </ul>
+        <h4>Out of scope (and explicitly not implemented)</h4>
+        <ul>
+          <li>No cracking, no credential stuffing, no authentication bypass, no guessing against any account.</li>
+          <li>No collection of real user passwords, and no storage of anything derived from them.</li>
+          <li>No claim that a high score means an account is safe.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand" style="margin-bottom:10px">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 4l24 9v19c0 15-10 24-24 28C18 56 8 47 8 32V13z" fill="#0b111f" stroke="#4cc9f0" stroke-width="3.2"/>
+          <path d="M22 32l7 7 14-15" stroke="#2ee6a8" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-text"><span class="brand-title">Password Strength Analyzer</span><span class="brand-sub">Defensive security project</span></span>
+      </div>
+      <p class="small">A defensive cybersecurity project: analyze password strength locally, explain the reasons, teach better habits. No passwords are stored, logged or transmitted.</p>
+    </div>
+    <div>
+      <h4>Sections</h4>
+      <ul>
+        <li><a href="#analyzer" data-goto="analyzer">Analyzer</a></li>
+        <li><a href="#generator" data-goto="generator">Generator</a></li>
+        <li><a href="#dashboard" data-goto="dashboard">Dashboard</a></li>
+        <li><a href="#learn" data-goto="learn">Learn</a></li>
+        <li><a href="#privacy" data-goto="privacy">Privacy &amp; security design</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <ul>
+        <li>Python engine + Flask API</li>
+        <li>JavaScript engine (this page)</li>
+        <li>pytest suite + JS parity test</li>
+        <li>README · project report · docs</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-note">
+    <p class="mb-0"><strong>Security disclaimer:</strong> this tool provides an <em>educational estimate</em>. Password strength cannot be perfectly determined by one formula, and a high score does not guarantee an account is safe — MFA, secure hashing, rate limiting, session protection and phishing awareness are equally important. Use synthetic demo values in screenshots, reports and testing. Never enter a real password into a demo deployment.</p>
+  </div>
+</footer>
+
+<!-- Data files must load before the engine. -->
+<script src="js/data/common_passwords.js"></script>
+<script src="js/data/keyboard_patterns.js"></script>
+<script src="js/data/common_phrases.js"></script>
+<script src="js/data/passphrase_words.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/hashdemo.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

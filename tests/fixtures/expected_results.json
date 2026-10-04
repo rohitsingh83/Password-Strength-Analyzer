@@ -1,0 +1,1137 @@
+{
+  "generated_by": "scripts/generate_fixtures.py (Python engine)",
+  "engine_version": "1.0",
+  "note": "All passwords are synthetic demo values. Generated entries are runtime samples used only to check that both engines agree.",
+  "fixtures": [
+    {
+      "password": "",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 0,
+      "unique_character_ratio": 0.0,
+      "pattern_count": 0,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "a",
+      "context": null,
+      "score": 10,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 2,
+      "length": 1,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 0,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "ab",
+      "context": null,
+      "score": 10,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 2,
+      "length": 2,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 0,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "123456",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "keyboard_pattern",
+        "low_variety",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 6,
+      "length": 6,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "12345678",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "keyboard_pattern",
+        "low_variety",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 6,
+      "length": 8,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "987654321",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "keyboard_pattern",
+        "low_variety",
+        "phone_pattern",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 6,
+      "length": 9,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "password",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 8,
+      "unique_character_ratio": 0.875,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "password123",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "predictable_structure",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 11,
+      "unique_character_ratio": 0.909,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Password123!",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "dictionary_word",
+        "predictable_structure"
+      ],
+      "weakness_count": 3,
+      "length": 12,
+      "unique_character_ratio": 0.917,
+      "pattern_count": 3,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "P@ssw0rd",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "dictionary_word",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 8,
+      "unique_character_ratio": 0.875,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "letmein",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 7,
+      "unique_character_ratio": 0.857,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "welcome",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "dictionary_word",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 4,
+      "length": 7,
+      "unique_character_ratio": 0.857,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "admin",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "dictionary_word",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 4,
+      "length": 5,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "iloveyou1",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "predictable_structure",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 9,
+      "unique_character_ratio": 0.889,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "qwerty",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "keyboard_pattern",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 6,
+      "length": 6,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "qwerty123",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "keyboard_pattern",
+        "predictable_structure",
+        "short_length"
+      ],
+      "weakness_count": 6,
+      "length": 9,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 5,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "qwerty2026!",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "dictionary_word",
+        "keyboard_pattern",
+        "predictable_structure",
+        "short_length",
+        "year_pattern"
+      ],
+      "weakness_count": 6,
+      "length": 11,
+      "unique_character_ratio": 0.909,
+      "pattern_count": 5,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "1qaz2wsx",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "keyboard_pattern",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 8,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "asdfghjkl",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "dictionary_word",
+        "keyboard_pattern",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 9,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "zxcvbnm123",
+      "context": null,
+      "score": 19,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "dictionary_word",
+        "keyboard_pattern",
+        "predictable_structure",
+        "short_length"
+      ],
+      "weakness_count": 4,
+      "length": 10,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "aaaaaaaaaaaaaaaa",
+      "context": null,
+      "score": 15,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "low_variety",
+        "repeated_characters"
+      ],
+      "weakness_count": 2,
+      "length": 16,
+      "unique_character_ratio": 0.062,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "aaaaaaaa",
+      "context": null,
+      "score": 15,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "low_variety",
+        "repeated_characters",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 8,
+      "unique_character_ratio": 0.125,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "111111111111",
+      "context": null,
+      "score": 15,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "low_variety",
+        "phone_pattern",
+        "repeated_characters"
+      ],
+      "weakness_count": 3,
+      "length": 12,
+      "unique_character_ratio": 0.083,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "abcabcabc",
+      "context": null,
+      "score": 25,
+      "classification": "WEAK",
+      "finding_types": [
+        "low_variety",
+        "repeated_substring",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 9,
+      "unique_character_ratio": 0.333,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "ababababab",
+      "context": null,
+      "score": 25,
+      "classification": "WEAK",
+      "finding_types": [
+        "low_variety",
+        "repeated_substring",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 10,
+      "unique_character_ratio": 0.2,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "abc123abc123",
+      "context": null,
+      "score": 50,
+      "classification": "MODERATE",
+      "finding_types": [
+        "repeated_substring"
+      ],
+      "weakness_count": 1,
+      "length": 12,
+      "unique_character_ratio": 0.5,
+      "pattern_count": 1,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "1234abcd",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "keyboard_pattern",
+        "sequence",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 8,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "abcdefgh",
+      "context": null,
+      "score": 37,
+      "classification": "WEAK",
+      "finding_types": [
+        "low_variety",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 8,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "zyxwvuts",
+      "context": null,
+      "score": 37,
+      "classification": "WEAK",
+      "finding_types": [
+        "low_variety",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 8,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "ABCDEFGHIJ",
+      "context": null,
+      "score": 37,
+      "classification": "WEAK",
+      "finding_types": [
+        "low_variety",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 10,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "!@#$%^&*()",
+      "context": null,
+      "score": 35,
+      "classification": "WEAK",
+      "finding_types": [
+        "keyboard_pattern",
+        "keyboard_pattern",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 4,
+      "length": 10,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "9876543210",
+      "context": null,
+      "score": 24,
+      "classification": "WEAK",
+      "finding_types": [
+        "keyboard_pattern",
+        "low_variety",
+        "phone_pattern",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 5,
+      "length": 10,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Summer2025!",
+      "context": null,
+      "score": 40,
+      "classification": "WEAK",
+      "finding_types": [
+        "dictionary_word",
+        "predictable_structure",
+        "short_length",
+        "year_pattern"
+      ],
+      "weakness_count": 4,
+      "length": 11,
+      "unique_character_ratio": 0.818,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "welcome123",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "dictionary_word",
+        "predictable_structure",
+        "short_length"
+      ],
+      "weakness_count": 4,
+      "length": 10,
+      "unique_character_ratio": 0.9,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "admin2026",
+      "context": null,
+      "score": 38,
+      "classification": "WEAK",
+      "finding_types": [
+        "dictionary_word",
+        "predictable_structure",
+        "short_length",
+        "year_pattern"
+      ],
+      "weakness_count": 4,
+      "length": 9,
+      "unique_character_ratio": 0.889,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "hello1234",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "breach",
+        "common_password",
+        "dictionary_word",
+        "keyboard_pattern",
+        "predictable_structure",
+        "sequence",
+        "short_length"
+      ],
+      "weakness_count": 7,
+      "length": 9,
+      "unique_character_ratio": 0.889,
+      "pattern_count": 6,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Demo-Pattern-123!",
+      "context": null,
+      "score": 60,
+      "classification": "MODERATE",
+      "finding_types": [
+        "dictionary_word",
+        "dictionary_word",
+        "predictable_structure"
+      ],
+      "weakness_count": 3,
+      "length": 17,
+      "unique_character_ratio": 0.824,
+      "pattern_count": 3,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "Demo-Pattern-Shape-2026",
+      "context": null,
+      "score": 45,
+      "classification": "MODERATE",
+      "finding_types": [
+        "passphrase_structure",
+        "year_pattern"
+      ],
+      "weakness_count": 2,
+      "length": 23,
+      "unique_character_ratio": 0.696,
+      "pattern_count": 1,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "correct-horse-battery-staple",
+      "context": null,
+      "score": 20,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_phrase",
+        "passphrase_structure"
+      ],
+      "weakness_count": 2,
+      "length": 28,
+      "unique_character_ratio": 0.464,
+      "pattern_count": 1,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "Copper-Lantern-Orchid-Gravity",
+      "context": null,
+      "score": 92,
+      "classification": "VERY STRONG",
+      "finding_types": [
+        "passphrase_structure"
+      ],
+      "weakness_count": 1,
+      "length": 29,
+      "unique_character_ratio": 0.621,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Tundra-Basil-Falcon-Thistle-Prism",
+      "context": null,
+      "score": 91,
+      "classification": "VERY STRONG",
+      "finding_types": [
+        "passphrase_structure"
+      ],
+      "weakness_count": 1,
+      "length": 33,
+      "unique_character_ratio": 0.576,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Tr0ub4dor&3",
+      "context": null,
+      "score": 68,
+      "classification": "STRONG",
+      "finding_types": [
+        "short_length"
+      ],
+      "weakness_count": 1,
+      "length": 11,
+      "unique_character_ratio": 0.909,
+      "pattern_count": 0,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "x7#Kq2!mZ9@vL4$p",
+      "context": null,
+      "score": 97,
+      "classification": "VERY STRONG",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 16,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "9fJ#2Lm$8Qz!5Xr@7Tb",
+      "context": null,
+      "score": 97,
+      "classification": "VERY STRONG",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 19,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Sunset-Orchid-River",
+      "context": null,
+      "score": 62,
+      "classification": "STRONG",
+      "finding_types": [
+        "dictionary_word",
+        "dictionary_word",
+        "dictionary_word"
+      ],
+      "weakness_count": 3,
+      "length": 19,
+      "unique_character_ratio": 0.789,
+      "pattern_count": 3,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "with space passphrase here",
+      "context": null,
+      "score": 83,
+      "classification": "VERY STRONG",
+      "finding_types": [
+        "passphrase_structure"
+      ],
+      "weakness_count": 1,
+      "length": 26,
+      "unique_character_ratio": 0.423,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Rahul@123",
+      "context": {
+        "first_name": "Rahul",
+        "birth_year": "1999",
+        "organisation": "Demo College"
+      },
+      "score": 37,
+      "classification": "WEAK",
+      "finding_types": [
+        "personal_info",
+        "predictable_structure",
+        "short_length"
+      ],
+      "weakness_count": 3,
+      "length": 9,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Hyderabad@2026",
+      "context": {
+        "organisation": "Demo College"
+      },
+      "score": 45,
+      "classification": "MODERATE",
+      "finding_types": [
+        "predictable_structure",
+        "year_pattern"
+      ],
+      "weakness_count": 2,
+      "length": 14,
+      "unique_character_ratio": 0.786,
+      "pattern_count": 2,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "DemoCollege@123",
+      "context": {
+        "organisation": "Demo College"
+      },
+      "score": 34,
+      "classification": "WEAK",
+      "finding_types": [
+        "dictionary_word",
+        "personal_info",
+        "personal_info",
+        "predictable_structure"
+      ],
+      "weakness_count": 4,
+      "length": 15,
+      "unique_character_ratio": 0.733,
+      "pattern_count": 4,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "1999-Demo-Name",
+      "context": {
+        "first_name": "Demo",
+        "birth_year": "1999"
+      },
+      "score": 39,
+      "classification": "WEAK",
+      "finding_types": [
+        "dictionary_word",
+        "personal_info",
+        "year_pattern"
+      ],
+      "weakness_count": 3,
+      "length": 14,
+      "unique_character_ratio": 0.643,
+      "pattern_count": 3,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "Абвгдеж1234!",
+      "context": null,
+      "score": 49,
+      "classification": "MODERATE",
+      "finding_types": [
+        "keyboard_pattern",
+        "sequence",
+        "sequence"
+      ],
+      "weakness_count": 3,
+      "length": 12,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 3,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "пароль123",
+      "context": null,
+      "score": 59,
+      "classification": "MODERATE",
+      "finding_types": [
+        "short_length"
+      ],
+      "weakness_count": 1,
+      "length": 9,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 0,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "pass word demo 2026",
+      "context": null,
+      "score": 45,
+      "classification": "MODERATE",
+      "finding_types": [
+        "passphrase_structure",
+        "year_pattern"
+      ],
+      "weakness_count": 2,
+      "length": 19,
+      "unique_character_ratio": 0.684,
+      "pattern_count": 1,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "test",
+      "context": null,
+      "score": 0,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_password",
+        "dictionary_word",
+        "low_variety",
+        "short_length"
+      ],
+      "weakness_count": 4,
+      "length": 4,
+      "unique_character_ratio": 0.75,
+      "pattern_count": 2,
+      "policy_pass": false,
+      "score_cap_applied": false
+    },
+    {
+      "password": "MyDog-Is-Named-Coco",
+      "context": null,
+      "score": 74,
+      "classification": "STRONG",
+      "finding_types": [
+        "repeated_substring"
+      ],
+      "weakness_count": 1,
+      "length": 19,
+      "unique_character_ratio": 0.789,
+      "pattern_count": 1,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "jdDjDd",
+      "context": null,
+      "score": 20,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "short_length"
+      ],
+      "weakness_count": 1,
+      "length": 6,
+      "unique_character_ratio": 0.5,
+      "pattern_count": 0,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "PassPass",
+      "context": null,
+      "score": 25,
+      "classification": "WEAK",
+      "finding_types": [
+        "repeated_substring",
+        "short_length"
+      ],
+      "weakness_count": 2,
+      "length": 8,
+      "unique_character_ratio": 0.375,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "Ab1Ab1Ab1",
+      "context": null,
+      "score": 25,
+      "classification": "WEAK",
+      "finding_types": [
+        "repeated_substring",
+        "short_length"
+      ],
+      "weakness_count": 2,
+      "length": 9,
+      "unique_character_ratio": 0.333,
+      "pattern_count": 1,
+      "policy_pass": false,
+      "score_cap_applied": true
+    },
+    {
+      "password": "JHN7c1VQ27KldixYLn3KNQKaZK",
+      "context": null,
+      "score": 95,
+      "classification": "VERY STRONG",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 26,
+      "unique_character_ratio": 0.769,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "correct horse battery staple",
+      "context": null,
+      "score": 20,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_phrase",
+        "passphrase_structure"
+      ],
+      "weakness_count": 2,
+      "length": 28,
+      "unique_character_ratio": 0.464,
+      "pattern_count": 1,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "The-Quick-Brown-Fox-2026",
+      "context": null,
+      "score": 20,
+      "classification": "VERY WEAK",
+      "finding_types": [
+        "common_phrase",
+        "passphrase_structure",
+        "year_pattern"
+      ],
+      "weakness_count": 3,
+      "length": 24,
+      "unique_character_ratio": 0.792,
+      "pattern_count": 2,
+      "policy_pass": true,
+      "score_cap_applied": true
+    },
+    {
+      "password": "+z7y[f]/gA}TEN(8",
+      "context": null,
+      "generated_mode": "password16",
+      "volatile": true,
+      "score": 97,
+      "classification": "VERY STRONG",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 16,
+      "unique_character_ratio": 1.0,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "W6,6j5N(GT#^B+[=~$Ey",
+      "context": null,
+      "generated_mode": "password20",
+      "volatile": true,
+      "score": 100,
+      "classification": "VERY STRONG",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 20,
+      "unique_character_ratio": 0.95,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "3-yj>4{9?iHk]XaHi~5LLpbh",
+      "context": null,
+      "generated_mode": "password24",
+      "volatile": true,
+      "score": 99,
+      "classification": "VERY STRONG",
+      "finding_types": [],
+      "weakness_count": 0,
+      "length": 24,
+      "unique_character_ratio": 0.875,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "mastodon-plessor-plod-jog",
+      "context": null,
+      "generated_mode": "passphrase4",
+      "volatile": true,
+      "score": 85,
+      "classification": "VERY STRONG",
+      "finding_types": [
+        "passphrase_structure"
+      ],
+      "weakness_count": 1,
+      "length": 25,
+      "unique_character_ratio": 0.56,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    },
+    {
+      "password": "jute-retentive-driftwood-truant-lining-wide",
+      "context": null,
+      "generated_mode": "passphrase6",
+      "volatile": true,
+      "score": 82,
+      "classification": "VERY STRONG",
+      "finding_types": [
+        "passphrase_structure"
+      ],
+      "weakness_count": 1,
+      "length": 43,
+      "unique_character_ratio": 0.372,
+      "pattern_count": 0,
+      "policy_pass": true,
+      "score_cap_applied": false
+    }
+  ]
+}

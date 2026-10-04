@@ -1,0 +1,17 @@
+# File: .nojekyll
+#
+# PURPOSE
+#   Tells GitHub Pages to publish this repository exactly as it is, without
+#   running it through Jekyll.
+#
+# WHY IT MATTERS HERE
+#   1. Jekyll ignores directories whose names begin with an underscore. Keeping
+#      Jekyll out of the way means no path in this project can ever disappear
+#      because of that rule.
+#   2. It removes any chance of Jekyll transforming or reformatting the single
+#      file build (Password-Strength-Analyzer-standalone.html) or the generated
+#      browser data files in frontend/js/data/.
+#   3. It makes deployments faster, because no site is generated at all.
+#
+# GitHub Pages treats the mere presence of this file as the switch; its contents
+# are ignored. The comment above is for the reader.
