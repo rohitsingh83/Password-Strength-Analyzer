@@ -22,6 +22,12 @@ import argparse
 import pathlib
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 SKIP_DIRECTORIES = {

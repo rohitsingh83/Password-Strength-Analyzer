@@ -9,6 +9,7 @@
 *.pem
 *.key
 secrets.json
+.github/
 
 # --- Local analytics database (aggregate metadata only, but still local) ---
 data/analytics.db
